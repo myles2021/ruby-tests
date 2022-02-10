@@ -1,5 +1,7 @@
 Card game: Poophead
 
+Each player is dealt three bottom cards which can't be seen until the end stage of the game, three cards that can be seen on top of those cards, and three cards to have in your hand. The six cards that a player can see can be swapped to their desire. Once all of the deck has gone, you have no cards in your hand, and have gotten rid of the three cards facing upwards, you can reveal one card by random to put onto the in-play deck, if it doesn't fit the card rules then the player must pick up the in-play deck.
+
 Card rules:
 Yes = can go on top of
 No = can't go on top of
