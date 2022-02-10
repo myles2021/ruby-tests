@@ -10,7 +10,7 @@ in_play_pile = []
 
 correct_card = false
 
-top_in_play_card = in_play_pile[0]
+top_in_play_card = in_play_pile[-1]
 
 def card_rules
   if card_picked == "A"
