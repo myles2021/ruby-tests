@@ -22,7 +22,7 @@ while players_question == true
     player4_bottom_cards = []
     player4_top_cards = []
   else
-    puts "Please select 1, 2, 3, or 4 players."
+    puts "Please only select 1, 2, 3, or 4 players."
     players_question = true
   end
   players_question = false
