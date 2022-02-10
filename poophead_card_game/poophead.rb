@@ -64,7 +64,7 @@ def card_rules
     puts "What card will your Joker be impersonating: \n"
     joker_face = gets.chomp.uppercase
     card_picked = joker_face
+  else
+    correct_card = true
   end
-else
-  correct_card = true
 end
