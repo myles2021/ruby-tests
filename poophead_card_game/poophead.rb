@@ -29,7 +29,7 @@ def card_rules
     end
   elsif card_picked == "10"
       correct_card = true
-      in_play_pile(0).delete_all
+      in_play_pile.delete_all
   elsif card_picked == "9"
     if in_play_pile(0) != (7 || "A" || "K" || "Q" || "J")
       correct_card = true
