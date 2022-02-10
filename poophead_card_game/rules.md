@@ -8,7 +8,7 @@
 - If the in-play deck has a consecutive of 4 of a kind, then the deck is burnt
 
 <h2>Card rules:</h2>
-<p>Yes = can go on top of
+Yes = can go on top of
 No = can't go on top of
 Ace:
   Yes: 2, 3, 4, 5, 6, 8, 9, J, Q, K, A
@@ -52,4 +52,4 @@ Jack:
   Yes: All
   Power: Restarts the deck
 Joker:
-  Power: Can impersonate any other card that the players wants it to</p>
+  Power: Can impersonate any other card that the players wants it to
