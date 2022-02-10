@@ -12,49 +12,49 @@ correct_card = false
 
 def card_rules
   if card_picked == "A"
-    if in_play_pile(0) != 7
+    if in_play_pile[0] != 7
       correct_card = true
     end
   elsif card_picked == "K"
-    if in_play_pile(0) != (7 || "A")
+    if in_play_pile[0] != (7 || "A")
       correct_card = true
     end
   elsif card_picked == "Q"
-    if in_play_pile(0) != (7 || "A" || "K")
+    if in_play_pile[0] != (7 || "A" || "K")
       correct_card = true
     end
   elsif card_picked == "J"
-    if in_play_pile(0) != (7 || "A" || "K" || "Q")
+    if in_play_pile[0] != (7 || "A" || "K" || "Q")
       correct_card = true
     end
   elsif card_picked == "10"
       correct_card = true
       in_play_pile.delete_all
   elsif card_picked == "9"
-    if in_play_pile(0) != (7 || "A" || "K" || "Q" || "J")
+    if in_play_pile[0] != (7 || "A" || "K" || "Q" || "J")
       correct_card = true
     end
   elsif card_picked == "8"
       correct_card = true
   elsif card_picked == "7"
-    if in_play_pile(0) != ("A" || "K" || "Q" || "J" || 9)
+    if in_play_pile[0] != ("A" || "K" || "Q" || "J" || 9)
       correct_card = true
     end
   elsif card_picked == "6"
-    if in_play_pile(0) != ("A" || "K" || "Q" || "J" || 9)
+    if in_play_pile[0] != ("A" || "K" || "Q" || "J" || 9)
       correct_card = true
     end
   elsif card_picked == "5"
-    if in_play_pile(0) != ("A" || "K" || "Q" || "J" || 9 || 6)
+    if in_play_pile[0] != ("A" || "K" || "Q" || "J" || 9 || 6)
       correct_card = true
     end
     players_go
   elsif card_picked == "4"
-    if in_play_pile(0) != ("A" || "K" || "Q" || "J" || 9 || 6 || 5)
+    if in_play_pile[0] != ("A" || "K" || "Q" || "J" || 9 || 6 || 5)
       correct_card = true
     end
   elsif card_picked == "3"
-    if in_play_pile(0) != ("A" || "K" || "Q" || "J" || 9 || 6 || 5 || 3)
+    if in_play_pile[0] != ("A" || "K" || "Q" || "J" || 9 || 6 || 5 || 3)
       correct_card = true
     end
   elsif card_picked == "Joker"
