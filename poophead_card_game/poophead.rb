@@ -31,7 +31,7 @@ def card_rules
     end
   elsif card_picked == "10"
       correct_card = true
-      in_play_pile.delete_all
+      in_play_pile = []
   elsif card_picked == "9"
     if top_in_play_card != (7 || "A" || "K" || "Q" || "J")
       correct_card = true
