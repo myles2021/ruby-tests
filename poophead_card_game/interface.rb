@@ -55,6 +55,18 @@ while players_question == true
       player3_top_cards = [],
       player3_bottom_cards = []
     ]
+    6.times do
+      count = card_deck.count
+      three_players[0] << card_deck.delete_at(rand(0..count))
+      three_players[2] << card_deck.delete_at(rand(0..count))
+      three_players[4] << card_deck.delete_at(rand(0..count))
+    end
+    3.times do
+      count = card_deck.count
+      three_players[1] << card_deck.delete_at(rand(0..count))
+      three_players[3] << card_deck.delete_at(rand(0..count))
+      three_players[5] << card_deck.delete_at(rand(0..count))
+    end
     players_question = false
   elsif amount_of_players == 4
     four_players = [
@@ -67,6 +79,20 @@ while players_question == true
       player4_top_cards = [],
       player4_bottom_cards = []
     ]
+    6.times do
+      count = card_deck.count
+      four_players[0] << card_deck.delete_at(rand(0..count))
+      four_players[2] << card_deck.delete_at(rand(0..count))
+      four_players[4] << card_deck.delete_at(rand(0..count))
+      four_players[6] << card_deck.delete_at(rand(0..count))
+    end
+    3.times do
+      count = card_deck.count
+      four_players[1] << card_deck.delete_at(rand(0..count))
+      four_players[3] << card_deck.delete_at(rand(0..count))
+      four_players[5] << card_deck.delete_at(rand(0..count))
+      four_players[7] << card_deck.delete_at(rand(0..count))
+    end
     players_question = false
   else
     puts "Please only select 1, 2, 3, or 4 players."
@@ -75,6 +101,19 @@ while players_question == true
 end
 
 print "#{one_player} \n"
+print "#{two_players} \n"
+print "#{three_players} \n"
+print "#{four_players} \n"
 print card_deck
 
-# running = true
+running = true
+
+while running == true
+  if amount_of_players == 1
+    play
+  elsif amount_of_players == 2
+  elsif amount_of_players == 3
+  elsif amount_of_players == 4
+  else
+  end
+end
