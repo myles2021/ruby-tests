@@ -13,7 +13,7 @@ end
 
 def which_card_question
   puts "Which card will you put in the pile: \n"
-  gets.chomp
+  gets.chomp.capitalize
 end
 
 @in_play_pile = []
@@ -85,7 +85,7 @@ def card_rules
   elsif card_picked == "Joker"
     correct_card = true
     puts "What card will your Joker be impersonating: \n"
-    joker_face = gets.chomp.uppercase
+    joker_face = gets.chomp.capitalize
     # card_picked = joker_face
   else
     correct_card = true
