@@ -13,7 +13,7 @@ end
 
 def which_card_question
   puts "Which card will you put in the pile: \n"
-  gets.chomp.capitalize
+  gets.chomp.upcase.gsub(/\s+/, '')
 end
 
 @in_play_pile = []
