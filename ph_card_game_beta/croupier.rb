@@ -33,6 +33,15 @@ def deal_cards
   end
 end
 
+# def no_nil_entry
+#   if @player_one[0..2].include?(nil) && @player_two[0..2].include?(nil)
+#     until @player_one[0..2].size == 9 && @player_two[0..2].size == 9
+#       @player_one[0..2].pop until @player_one[0..2].empty?
+#       @player_two[0..2].pop until @player_two[0..2].empty?
+#       deal_cards until
+#     end
+#   end
+# end
 # def check_p1_cards
 #   @player_one.each do |card_group|
 #     if card_group.include?(nil)
