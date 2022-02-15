@@ -102,7 +102,8 @@ def card_rules(card_in_question)
 end
 
 def burn(card_in_question)
-    @burn += 13 if @in_play_pile[-1..-4] == [card_in_question, card_in_question, card_in_question]
+  suit_and_character = card_in_question.split(//)
+  @burn = 13 if @in_play_pile[-1..-4] == [suit_and_character[1], suit_and_character[1], suit_and_character[1]]
 end
 
 def card_points(card_in_question)
@@ -183,11 +184,6 @@ def card_points(card_in_question)
     @high_card = 13
     @best = 13
     @total = (@burn + @high_card + @best)
-  elsif card_in_question.include?("Joker")
-    correct_card = true
-    puts "What card will your Joker be impersonating: \n"
-    joker_face = gets.chomp.upcase
-    # top_in_play_card = joker_face
   else
     correct_card = false
   end
