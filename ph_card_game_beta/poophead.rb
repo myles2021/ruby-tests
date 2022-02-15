@@ -63,8 +63,8 @@ end
 # card_rules(ai_new_top_card) << that would show whether the ai selection is eligible
 
 def card_rules(card_in_question)
-  if card_in_question.include?("A")
-    @correct_card = true if @top_in_play_card != "7"
+  if card_in_question.include?('A')
+    @correct_card = true unless @top_in_play_card.include?(@characters[5])
   elsif card_in_question.include?("K")
     @correct_card = true if @top_in_play_card != ("7" || "A")
   elsif card_in_question.include?("Q")
