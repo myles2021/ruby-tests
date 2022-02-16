@@ -1,9 +1,9 @@
 require_relative 'croupier'
 
-def card_check(which_card)
+def card_check(which_card, which_player)
   card_exists = false
   while card_exists == false
-    @player_one[0].each do |card|
+    which_player[0].each do |card|
       card_exists = true if which_card == card
       # error: need an else statement or something to throw an error and loop back if the card doesn't exist
     end
@@ -19,7 +19,7 @@ end
 @in_play_pile = []
 
 def p1_new_top_card
-  top_card_choice = card_check(which_card_question)
+  top_card_choice = card_check(which_card_question, @player_one)
   @in_play_pile << top_card_choice
   @player_one[0].delete(top_card_choice)
   card_count = @card_deck.size
@@ -57,55 +57,62 @@ def ai_new_top_card_simple
   print "#{@in_play_pile.reverse} \n"
 end
 
-def ai_new_top_card
-  card_rules(@top_in_play_card)
+def ai_new_top_card(p1_p2)
   true_cards = []
-  @player_two[0].each do |card|
+  p1_p2[0].each do |card|
     card_rules(card)
     true_cards << card if @correct_card == true
   end
   true_cards.sort
-  if true_cards.empty?
-    @player_two[0] << @in_play_pile [0..-1]
-  else
-    @in_play_pile << true_cards[0]
+  p1_p2[0] = []
+  true_cards.each do |t_card|
+    p1_p2[0] << t_card
   end
-  print "#{@in_play_pile} \n"
-  # iterate through them until correct card is true and sort by total
-  # @in_play_pile << ai_top_card_choice
+  if true_cards.empty?
+    p1_p2[0] << @in_play_pile [0..-1]
+  else
+    p1_p2[0] = []
+    true_cards.each do |t_card|
+      p1_p2[0] << t_card
+    end
+    @in_play_pile << p1_p2[0].delete_at(0)
+    card_count = @card_deck.size
+    p1_p2[0] << @card_deck.delete_at(rand(0..card_count))
+  end
+  print "#{@in_play_pile.reverse} \n"
 end
 
 # card_rules(@top_in_play_card) << that would show whether the latest card played
 # card_rules(ai_new_top_card) << that would show whether the ai selection is eligible
 
 def card_rules(card_in_question)
-  if card_in_question.include?('A')
+  if card_in_question.include?(@characters[12])
     @correct_card = true unless @top_in_play_card.include?(@characters[5])
-  elsif card_in_question.include?("K")
-    @correct_card = true if @top_in_play_card != ("7" || "A")
-  elsif card_in_question.include?("Q")
-    @correct_card = true if @top_in_play_card != ("7" || "A" || "K")
-  elsif card_in_question.include?("J")
-    @correct_card = true if @top_in_play_card != ("7" || "A" || "K" || "Q")
-  elsif card_in_question.include?("10")
+  elsif card_in_question.include?(@characters[11])
+    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12])
+  elsif card_in_question.include?(@characters[10])
+    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11])
+  elsif card_in_question.include?(@characters[9])
+    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10])
+  elsif card_in_question.include?(@characters[8])
     @correct_card = true
     @in_play_pile = []
-  elsif card_in_question.include?("9")
-    @correct_card = true if @top_in_play_card != ("7" || "A" || "K" || "Q" || "J")
-  elsif card_in_question.include?("8")
+  elsif card_in_question.include?(@characters[7])
+    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9])
+  elsif card_in_question.include?(@characters[6])
     @correct_card = true
-  elsif card_in_question.include?("7")
-    @correct_card = true if @top_in_play_card != ("A" || "K" || "Q" || "J" || "9")
-  elsif card_in_question.include?("6")
-    @correct_card = true if @top_in_play_card != ("A" || "K" || "Q" || "J" || "9")
-  elsif card_in_question.include?("5")
-    @correct_card = true if @top_in_play_card != ("A" || "K" || "Q" || "J" || "9" || "6")
-  elsif card_in_question.include?("4")
-    @correct_card = true if @top_in_play_card != ("A" || "K" || "Q" || "J" || "9" || "6" || "5")
-  elsif card_in_question.include?("3")
-    @correct_card = true if @top_in_play_card != ("A" || "K" || "Q" || "J" || "9" || "6" || "5" || "3")
-  elsif card_in_question.include?("2")
-    @correct_card = true if @top_in_play_card != ("A" || "K" || "Q" || "J" || "9" || "6" || "5" || "3")
+  elsif card_in_question.include?(@characters[5])
+    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7])
+  elsif card_in_question.include?(@characters[4])
+    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7] || @characters[4])
+  elsif card_in_question.include?(@characters[3])
+    @correct_card = true if @top_in_play_card != (@characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7] || @characters[4])
+  elsif card_in_question.include?(@characters[2])
+    @correct_card = true if @top_in_play_card != (@characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7] || @characters[4] || @characters[3])
+  elsif card_in_question.include?(@characters[1])
+    @correct_card = true if @top_in_play_card == (@characters[1] || @characters[5])
+  elsif card_in_question.include?(@characters[0])
+    @correct_card = true
   elsif card_in_question.include?("Joker")
     @correct_card = true
     puts "What card will your Joker be impersonating: \n"

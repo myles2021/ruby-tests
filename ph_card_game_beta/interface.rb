@@ -24,19 +24,20 @@ while running == true
   print "Card deck #{@card_deck} \n"
   p1_new_top_card
   print "Cards in your hand: #{@player_one[0]} \n"
-  ai_new_top_card_simple
+  print "Cards in AI hand: #{@player_two[0]} \n"
+  ai_new_top_card(@player_two)
   print "Cards in AI hand: #{@player_two[0]} \n"
   p1_new_top_card
-  print "Cards in your hand: #{@player_one[0]} \n"
-  ai_new_top_card_simple
-  print "Cards in AI hand: #{@player_two[0]} \n"
-  p1_new_top_card
-  print "Cards in your hand: #{@player_one[0]} \n"
-  ai_new_top_card_simple
-  p1_new_top_card
-  print "Cards in your hand: #{@player_one[0]} \n"
-  ai_new_top_card_simple
-  p1_new_top_card
-  print "Cards in your hand: #{@player_one[0]} \n"
+  # print "Cards in your hand: #{@player_one[0]} \n"
+  # ai_new_top_card(@player_two)
+  # print "Cards in AI hand: #{@player_two[0]} \n"
+  # p1_new_top_card
+  # print "Cards in your hand: #{@player_one[0]} \n"
+  # ai_new_top_card_simple
+  # p1_new_top_card
+  # print "Cards in your hand: #{@player_one[0]} \n"
+  # ai_new_top_card_simple
+  # p1_new_top_card
+  # print "Cards in your hand: #{@player_one[0]} \n"
   running = false
 end
