@@ -21,8 +21,10 @@ end
 def p1_new_top_card
   top_card_choice = card_check(which_card_question)
   @in_play_pile << top_card_choice
-  # @in_play_pile << @player_one[0].delete(top_card_choice)
-  print "#{@in_play_pile} \n"
+  @player_one[0].delete(top_card_choice)
+  card_count = @card_deck.size
+  @player_one[0] << @card_deck.delete_at(rand(0..card_count))
+  print "#{@in_play_pile.reverse} \n"
 end
 
 # @in_play_pile[-1] = top_card_in_play
@@ -48,6 +50,13 @@ end
 @burn = 0
 @high_card = 0
 
+def ai_new_top_card_simple
+  @in_play_pile << @player_two[0][0]
+  card_count = @card_deck.size
+  @player_one[0] << @card_deck.delete_at(rand(0..card_count))
+  print "#{@in_play_pile.reverse} \n"
+end
+
 def ai_new_top_card
   card_rules(@top_in_play_card)
   true_cards = []
@@ -61,6 +70,7 @@ def ai_new_top_card
   else
     @in_play_pile << true_cards[0]
   end
+  print "#{@in_play_pile} \n"
   # iterate through them until correct card is true and sort by total
   # @in_play_pile << ai_top_card_choice
 end
