@@ -49,13 +49,19 @@ end
 @high_card = 0
 
 def ai_new_top_card
-  p1_points = card_rules(@top_in_play_card)
-  @player_two[0].select do |card|
+  card_rules(@top_in_play_card)
+  true_cards = []
+  @player_two[0].each do |card|
     card_rules(card)
+    true_cards << card if @correct_card == true
+  end
+  true_cards.sort
+  if true_cards.empty?
+    @player_two[0] << @in_play_pile [0..-1]
+  else
+    @in_play_pile << true_cards[0]
   end
   # iterate through them until correct card is true and sort by total
-  # if total
-  # if @total is >
   # @in_play_pile << ai_top_card_choice
 end
 

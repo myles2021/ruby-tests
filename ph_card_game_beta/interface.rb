@@ -19,6 +19,6 @@ while running == true
   print "Cards in your hand: #{@player_one[0]} \n"
   print "Card deck #{@card_deck} \n"
   p1_new_top_card
-  ai_new_top_card
+  # ai_new_top_card
   running = false
 end

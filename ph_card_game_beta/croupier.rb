@@ -2,9 +2,9 @@
 
 @card_deck = []
 suits = %w[S C D H]
-characters = %w[2 3 4 5 6 7 8 9 10 J Q K A]
+@characters = %w[2 3 4 5 6 7 8 9 10 J Q K A]
 
-characters.each do |character|
+@characters.each do |character|
   suits.each do |suit|
     @card_deck << "#{suit}#{character}"
   end
@@ -25,7 +25,7 @@ end
 
 def deal_cards
   3.times do
-    card_count = @card_deck.count
+    card_count = @card_deck.size
     @player_one.each do |card_group|
       card_group << @card_deck.delete_at(rand(0..card_count))
     end
