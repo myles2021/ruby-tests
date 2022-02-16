@@ -115,8 +115,8 @@ def card_rules(card_in_question)
     @correct_card = true
   elsif card_in_question.include?("Joker")
     @correct_card = true
-    puts "What card will your Joker be impersonating: \n"
-    joker_face = gets.chomp.capitalize
+    # puts "What card will your Joker be impersonating: \n"
+    # joker_face = gets.chomp.capitalize
     # @top_in_play_card = joker_face
   else
     @correct_card = false
