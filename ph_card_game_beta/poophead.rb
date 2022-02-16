@@ -51,9 +51,9 @@ end
 @high_card = 0
 
 def ai_new_top_card_simple
-  @in_play_pile << @player_two[0][0]
+  @in_play_pile << @player_two[0].delete_at(0)
   card_count = @card_deck.size
-  @player_one[0] << @card_deck.delete_at(rand(0..card_count))
+  @player_two[0] << @card_deck.delete_at(rand(0..card_count))
   print "#{@in_play_pile.reverse} \n"
 end
 
