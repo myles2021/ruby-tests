@@ -30,7 +30,6 @@ end
 # @in_play_pile[-1] = top_card_in_play
 
 # top trump style stats for each card rating 0-13
-
 # iterate through characters and if in play pile -1 .. -4 include character then @burn = 100
 # if @in_play_pile[-1..-4].include? #all include the same number then @burn = 100
 
@@ -41,7 +40,7 @@ end
 
 # turn = false
 
-# def players_go
+# def players_go(p1_p2)
 #   turn = true
 # end
 
@@ -57,6 +56,16 @@ def ai_new_top_card_simple
   print "#{@in_play_pile.reverse} \n"
 end
 
+def p1_correct_card(p1_array)
+  true_cards = []
+  p1_array[0].each do |card|
+    card_rules(card)
+    true_cards << card if @correct_card == true
+  end
+  p1_array[0] << @in_play_pile [0..-1] if true_cards.empty?
+  # and skip go
+end
+
 def ai_new_top_card(p1_p2)
   true_cards = []
   p1_p2[0].each do |card|
@@ -64,10 +73,6 @@ def ai_new_top_card(p1_p2)
     true_cards << card if @correct_card == true
   end
   true_cards.sort
-  p1_p2[0] = []
-  true_cards.each do |t_card|
-    p1_p2[0] << t_card
-  end
   if true_cards.empty?
     p1_p2[0] << @in_play_pile [0..-1]
   else
