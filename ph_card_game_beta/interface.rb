@@ -9,15 +9,18 @@ sleep(1)
 running = true
 
 while running == true
-  nil_entry = true
-  while nil_entry == true
-    deal_cards
-    if @player_one[0..2][0..2].include?(nil) && @player_two[0..2][0..2].include?(nil)
-      deal_cards
-    else
-      nil_entry = false
-    end
-  end
+  # nil_entry = true
+  # while nil_entry == true
+  #   deal_cards
+  #   if @player_one[0..2][0..2].include?(nil) && @player_two[0..2][0..2].include?(nil)
+  #     deal_cards
+  #   else
+  #     nil_entry = false
+  #   end
+  # end
+  deal_cards
+  nil_check(@player_one)
+  nil_check(@player_two)
   print "Cards frozen as your top cards: #{@player_one[1]} \n"
   print "Cards frozen as AI top cards: #{@player_two[1]} \n"
   print "Cards in your hand: #{@player_one[0]} \n"

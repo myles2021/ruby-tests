@@ -33,6 +33,14 @@ def deal_cards
   end
 end
 
+def nil_check(p1_p2)
+  p1_p2.each do |card_group|
+    card_group.each do |card|
+      card.replace(@card_deck.delete_at(0)) if card.nil?
+    end
+  end
+end
+
 # card_group.pop until card_group.empty?
 
 # print "#{@player_one} \n"
