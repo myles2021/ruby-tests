@@ -59,7 +59,7 @@ end
 def p1_correct_card(p1_array)
   true_cards = []
   p1_array[0].each do |card|
-    card_rules(card)
+    card_rules(card, p1_array)
     true_cards << card if @correct_card == true
   end
   p1_array[0] << @in_play_pile [0..-1] if true_cards.empty?
@@ -69,7 +69,7 @@ end
 def ai_new_top_card(p1_p2)
   true_cards = []
   p1_p2[0].each do |card|
-    card_rules(card)
+    card_rules(card, p1_p2)
     true_cards << card if @correct_card == true
   end
   true_cards.sort
@@ -87,38 +87,50 @@ def ai_new_top_card(p1_p2)
   print "#{@in_play_pile.reverse} \n"
 end
 
-# card_rules(@top_in_play_card) << that would show whether the latest card played
-# card_rules(ai_new_top_card) << that would show whether the ai selection is eligible
+def check_burn(card_in_question, p1_or_p2)
+  suit_and_character = card_in_question.split(//)
+  burn(p1_or_p2) if @in_play_pile[-1..-4] == [suit_and_character[1], suit_and_character[1], suit_and_character[1]]
+end
 
-def card_rules(card_in_question)
-  if card_in_question.include?(@characters[12])
-    @correct_card = true unless @top_in_play_card.include?(@characters[5])
-  elsif card_in_question.include?(@characters[11])
-    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12])
-  elsif card_in_question.include?(@characters[10])
-    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11])
-  elsif card_in_question.include?(@characters[9])
-    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10])
-  elsif card_in_question.include?(@characters[8])
+def burn(p1_p2)
+  if @burn == 13
+    in_play_count = @in_play_pile.count
+    in_play_count.times do
+      p1_p2[0] << @in_play_pile.delete_at(0)
+    end
+  end
+end
+
+def card_rules(card_in_question, p1_or_p2)
+  check_burn(card_in_question, p1_or_p2)
+  if card_in_question.include?(@characters[12]) # Ace
+    @correct_card = true unless @top_in_play_card.include?(@characters[5]) # 7
+  elsif card_in_question.include?(@characters[11]) # King
+    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12]) # 7 & Ace
+  elsif card_in_question.include?(@characters[10]) # Queen
+    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11]) # 7 & Ace & King
+  elsif card_in_question.include?(@characters[9]) # Jack
+    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10]) # 7 & Ace & King & Queen
+  elsif card_in_question.include?(@characters[8]) # 10
     @correct_card = true
     @in_play_pile = []
-  elsif card_in_question.include?(@characters[7])
-    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9])
-  elsif card_in_question.include?(@characters[6])
+  elsif card_in_question.include?(@characters[7]) # 9
+    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9])  # 7 & Ace & King & Queen & Jack
+  elsif card_in_question.include?(@characters[6]) # 8
     @correct_card = true
-  elsif card_in_question.include?(@characters[5])
-    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7])
-  elsif card_in_question.include?(@characters[4])
-    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7] || @characters[4])
-  elsif card_in_question.include?(@characters[3])
-    @correct_card = true if @top_in_play_card != (@characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7] || @characters[4])
-  elsif card_in_question.include?(@characters[2])
-    @correct_card = true if @top_in_play_card != (@characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7] || @characters[4] || @characters[3])
-  elsif card_in_question.include?(@characters[1])
-    @correct_card = true if @top_in_play_card == (@characters[1] || @characters[5])
-  elsif card_in_question.include?(@characters[0])
+  elsif card_in_question.include?(@characters[5]) # 7
+    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7]) # 7 & Ace & King & Queen & Jack & 9
+  elsif card_in_question.include?(@characters[4]) # 6
+    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7] || @characters[4]) # 7 & Ace & King & Queen & Jack & 9
+  elsif card_in_question.include?(@characters[3]) # 5
+    @correct_card = true if @top_in_play_card != (@characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7] || @characters[4]) # Ace & King & Queen & Jack & 9
+  elsif card_in_question.include?(@characters[2]) # 4
+    @correct_card = true if @top_in_play_card != (@characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7] || @characters[4] || @characters[3]) # Ace & King & Queen & Jack & 9 & 5
+  elsif card_in_question.include?(@characters[1]) # 3
+    @correct_card = true if @top_in_play_card == (@characters[0] || @characters[1] || @characters[5]) # 2, 3 & 7
+  elsif card_in_question.include?(@characters[0]) # 2
     @correct_card = true
-  elsif card_in_question.include?("Joker")
+  elsif card_in_question.include?("Joker") # Joker
     @correct_card = true
     # puts "What card will your Joker be impersonating: \n"
     # joker_face = gets.chomp.capitalize
@@ -126,11 +138,6 @@ def card_rules(card_in_question)
   else
     @correct_card = false
   end
-end
-
-def burn(card_in_question)
-  suit_and_character = card_in_question.split(//)
-  @burn = 13 if @in_play_pile[-1..-4] == [suit_and_character[1], suit_and_character[1], suit_and_character[1]]
 end
 
 def card_points(card_in_question)
