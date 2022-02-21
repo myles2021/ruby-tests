@@ -1,5 +1,18 @@
 require_relative 'croupier'
 
+def ordinal(num)
+  ending = case num % 100
+           when 11, 12, 13 then 'th'
+           else
+             case num % 10
+             when 1 then 'st'
+             when 2 then 'nd'
+             when 3 then 'rd'
+             else 'th'
+             end
+           end
+end
+
 def card_check(which_card, which_player)
   card_exists = false
   while card_exists == false

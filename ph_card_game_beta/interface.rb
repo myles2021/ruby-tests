@@ -25,6 +25,17 @@ while running == true
   print "Cards frozen as your top cards: #{@player_one[1]} \n"
   print "Cards frozen as AI top cards: #{@player_two[1]} \n"
   print "Cards in your hand: #{@player_one[0]} \n"
+  print "Would you like to swap any of your top cards with your card deck? [yes/no]\n"
+  answer = gets.chomp
+  if answer.include?('yes' || 'y')
+    count = 1
+    until count == 3
+      print "Choose your #{count}#{ordinal(count)} top card:\n"
+      card = gets.chomp.upcase.gsub(/\s+/, '')
+      # @player_one[1] << @card_deck.delete(card)
+      count += 1
+    end
+  end
   p1_new_top_card
   print "Cards in AI hand: #{@player_two[0]} \n"
   ai_new_top_card(@player_two)
