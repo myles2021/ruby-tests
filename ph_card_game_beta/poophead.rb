@@ -1,24 +1,14 @@
 require_relative 'croupier'
 
-def ordinal(num)
-  ending = case num % 100
-           when 11, 12, 13 then 'th'
-           else
-             case num % 10
-             when 1 then 'st'
-             when 2 then 'nd'
-             when 3 then 'rd'
-             else 'th'
-             end
-           end
-end
-
 def card_check(which_card, which_player)
   card_exists = false
   while card_exists == false
     which_player[0].each do |card|
       card_exists = true if which_card == card
-      # error: need an else statement or something to throw an error and loop back if the card doesn't exist
+    end
+    if card_exists == false
+      puts "Sorry, that card doesn't exist..."
+      p1_new_top_card
     end
   end
   which_card
@@ -26,7 +16,12 @@ end
 
 def which_card_question
   puts "Which card will you put in the pile: \n"
-  gets.chomp.upcase.gsub(/\s+/, '')
+  answer = gets.chomp.downcase.gsub(/\s+/, '')
+  if answer.include?('joker')
+    answer.capitalize
+  else
+    answer.upcase
+  end
 end
 
 @in_play_pile = []
@@ -39,12 +34,6 @@ def p1_new_top_card
   @player_one[0] << @card_deck.delete_at(rand(0..card_count))
   print "#{@in_play_pile.reverse} \n"
 end
-
-# @in_play_pile[-1] = top_card_in_play
-
-# top trump style stats for each card rating 0-13
-# iterate through characters and if in play pile -1 .. -4 include character then @burn = 100
-# if @in_play_pile[-1..-4].include? #all include the same number then @burn = 100
 
 def recommended_card_choice
   # if @player_two
@@ -87,7 +76,9 @@ def ai_new_top_card(p1_p2)
   end
   true_cards.sort
   if true_cards.empty?
-    p1_p2[0] << @in_play_pile [0..-1]
+    @in_play_pile.each do |pick_up|
+      p1_p2[0] << pick_up
+    end
   else
     p1_p2[0] = []
     true_cards.each do |t_card|
@@ -114,23 +105,52 @@ def burn(p1_p2)
   end
 end
 
+def card_ace
+  @correct_card = true unless @top_in_play_card.include?(@characters[5]) # 7
+end
+
+def card_king
+  @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12]) # 7 & Ace
+end
+
+def card_queen
+  @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11]) # 7 & Ace & King
+end
+
+def card_jack
+  @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10]) # 7 & Ace & King & Queen
+end
+
+def card_nine
+  @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9])  # 7 & Ace & King & Queen & Jack
+end
+
+def card_eight_power
+  @top_in_play_card = @in_play_pile[-2]
+end
+
+def card_eight
+  @correct_card = true
+  card_eight_power
+end
+
 def card_rules(card_in_question, p1_or_p2)
   check_burn(card_in_question, p1_or_p2)
   if card_in_question.include?(@characters[12]) # Ace
-    @correct_card = true unless @top_in_play_card.include?(@characters[5]) # 7
+    card_ace
   elsif card_in_question.include?(@characters[11]) # King
-    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12]) # 7 & Ace
+    card_king
   elsif card_in_question.include?(@characters[10]) # Queen
-    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11]) # 7 & Ace & King
+    card_queen
   elsif card_in_question.include?(@characters[9]) # Jack
-    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10]) # 7 & Ace & King & Queen
+    card_jack
   elsif card_in_question.include?(@characters[8]) # 10
     @correct_card = true
     @in_play_pile = []
   elsif card_in_question.include?(@characters[7]) # 9
-    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9])  # 7 & Ace & King & Queen & Jack
+    card_nine
   elsif card_in_question.include?(@characters[6]) # 8
-    @correct_card = true
+    card_eight
   elsif card_in_question.include?(@characters[5]) # 7
     @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7]) # 7 & Ace & King & Queen & Jack & 9
   elsif card_in_question.include?(@characters[4]) # 6
@@ -143,7 +163,7 @@ def card_rules(card_in_question, p1_or_p2)
     @correct_card = true if @top_in_play_card == (@characters[0] || @characters[1] || @characters[5]) # 2, 3 & 7
   elsif card_in_question.include?(@characters[0]) # 2
     @correct_card = true
-  elsif card_in_question.include?("Joker") # Joker
+  elsif card_in_question.include?('Joker') # Joker
     @correct_card = true
     # puts "What card will your Joker be impersonating: \n"
     # joker_face = gets.chomp.capitalize
