@@ -32,8 +32,7 @@ def p1_new_top_card
   unless top_card_choice.nil?
     @in_play_pile << top_card_choice
     @player_one[0].delete(top_card_choice)
-    card_count = @card_deck.size
-    @player_one[0] << @card_deck.delete_at(rand(0..card_count))
+    @player_one[0] << @card_deck.delete_at(0)
     print "#{@in_play_pile.reverse} \n"
   end
 end
