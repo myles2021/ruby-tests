@@ -156,3 +156,59 @@ print "#{player_one[2]} \n"
 #     @correct_card = false
 #   end
 # end
+
+# def card_points(card_in_question)
+#   if card_in_question.include?("A")
+#     @burn = 0
+#     burn(card_in_question)
+#     @high_card = 12
+#   elsif card_in_question.include?("K")
+#     @burn = 0
+#     burn(card_in_question)
+#     @high_card = 11
+#   elsif card_in_question.include?("Q")
+#     @burn = 0
+#     burn(card_in_question)
+#     @high_card = 10
+#   elsif card_in_question.include?("J")
+#     @burn = 0
+#     burn(card_in_question)
+#     @high_card = 9
+#   elsif card_in_question.include?("10")
+#     @burn = 12
+#   elsif card_in_question.include?("9")
+#     @burn = 0
+#     burn(card_in_question)
+#     @high_card = 8
+#   elsif card_in_question.include?("8")
+#     @burn = 0
+#     burn(card_in_question)
+#     @high_card = 13
+#   elsif card_in_question.include?("7")
+#     @burn = 0
+#     burn(card_in_question)
+#     @high_card = 7
+#   elsif card_in_question.include?("6")
+#     @burn = 0
+#     burn(card_in_question)
+#     @high_card = 6
+#   elsif card_in_question.include?("5")
+#     @burn = 0
+#     burn(card_in_question)
+#     @high_card = 5
+#   elsif card_in_question.include?("4")
+#     @burn = 0
+#     burn(card_in_question)
+#     @high_card = 4
+#   elsif card_in_question.include?("3")
+#     @burn = 0
+#     burn(card_in_question)
+#     @high_card = 3
+#   elsif card_in_question.include?("2")
+#     @burn = 0
+#     burn(card_in_question)
+#     @high_card = 13
+#   else
+#     @correct_card = false
+#   end
+# end
