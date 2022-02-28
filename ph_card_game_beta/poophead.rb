@@ -47,16 +47,12 @@ end
 # end
 
 @correct_card = false
-@top_in_play_card = @in_play_pile[-1]
 @burn = 0
 @high_card = 0
 
-@tc_split = @top_in_play_card.split(//)
-
 def ai_new_top_card_simple
   @in_play_pile << @player_two[0].delete_at(0)
-  card_count = @card_deck.size
-  @player_two[0] << @card_deck.delete_at(rand(0..card_count))
+  @player_two[0] << @card_deck.delete_at(0)
   print "#{@in_play_pile.reverse} \n"
 end
 
@@ -70,7 +66,17 @@ def p1_correct_card(p1_array)
   # and skip go
 end
 
+def top_card_in_play
+  @top_in_play_card = @in_play_pile[-1]
+end
+
+def tc_split
+  top_card_in_play
+  @tc_split = @top_in_play_card.split(//)
+end
+
 def ai_new_top_card(p1_p2)
+  tc_split
   true_cards = []
   p1_p2[0].each do |card|
     card_rules(card, p1_p2)
@@ -137,7 +143,7 @@ def card_eight
 end
 
 def card_rules(card_in_question, p1_or_p2)
-  check_burn(card_in_question, p1_or_p2)
+  check_burn(card_in_question, p1_or_p2) unless card_in_question.include?('Joker1') || card_in_question.include?('Joker2')
   ciq_arr = card_in_question.split(//)
   if ciq_arr.include?(@characters[12]) # Ace
     card_ace
