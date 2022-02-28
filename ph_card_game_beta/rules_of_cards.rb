@@ -4,7 +4,7 @@ def card_ace
   ace_array = [@characters[5]] # 7
   tc_split
   ace_array.each do |aa_card|
-    @correct_card = true unless @tc_split.include?(aa_card)
+    p1_new_top_card_potential unless @tc_split.include?(aa_card)
   end
 end
 
@@ -12,7 +12,7 @@ def card_king
   king_array = [@characters[5], @characters[12]] # 7 A
   tc_split
   king_array.each do |ka_card|
-    @correct_card = true unless @tc_split.include?(ka_card)
+    p1_new_top_card_potential unless @tc_split.include?(ka_card)
   end
 end
 
@@ -20,7 +20,7 @@ def card_queen
   queen_array = [@characters[5], @characters[12], @characters[11]] # 7 A K
   tc_split
   queen_array.each do |qa_card|
-    @correct_card = true unless @tc_split.include?(qa_card)
+    p1_new_top_card_potential unless @tc_split.include?(qa_card)
   end
 end
 
@@ -28,7 +28,7 @@ def card_jack
   jack_array = [@characters[5], @characters[12], @characters[11], @characters[10]] # 7 A K Q
   tc_split
   jack_array.each do |ja_card|
-    @correct_card = true unless @tc_split.include?(ja_card)
+    p1_new_top_card_potential unless @tc_split.include?(ja_card)
   end
 end
 
@@ -36,7 +36,7 @@ def card_nine
   nine_array = [@characters[5], @characters[12], @characters[11], @characters[10], @characters[9]] # 7 A K Q J
   tc_split
   nine_array.each do |na_card|
-    @correct_card = true unless @tc_split.include?(na_card)
+    p1_new_top_card_potential unless @tc_split.include?(na_card)
   end
 end
 
@@ -55,7 +55,7 @@ def card_eight_power
 end
 
 def card_eight
-  @correct_card = true
+  p1_new_top_card_potential
   card_eight_power
 end
 
@@ -63,7 +63,7 @@ def card_seven
   seven_array = [@characters[12], @characters[11], @characters[10], @characters[9], @characters[7]] # A K Q J 9
   tc_split
   seven_array.each do |sa_card|
-    @correct_card = true unless @tc_split.include?(sa_card)
+    p1_new_top_card_potential unless @tc_split.include?(sa_card)
   end
 end
 
@@ -71,7 +71,7 @@ def card_six
   six_array = [@characters[12], @characters[11], @characters[10], @characters[9], @characters[7]] # A K Q J 9
   tc_split
   six_array.each do |sxa_card|
-    @correct_card = true unless @tc_split.include?(sxa_card)
+    p1_new_top_card_potential unless @tc_split.include?(sxa_card)
   end
 end
 
@@ -79,7 +79,7 @@ def card_five
   five_array = [@characters[0], @characters[1], @characters[2], @characters[3], @characters[5]] # 2 3 4 5 7
   tc_split
   five_array.each do |fa_card|
-    @correct_card = true if @tc_split.include?(fa_card)
+    p1_new_top_card_potential if @tc_split.include?(fa_card)
   end
 end
 
@@ -87,7 +87,7 @@ def card_four
   four_array = [@characters[0], @characters[1], @characters[2], @characters[5]] # 2 3 4 7
   tc_split
   four_array.each do |foa_card|
-    @correct_card = true if @tc_split.include?(foa_card)
+    p1_new_top_card_potential if @tc_split.include?(foa_card)
   end
 end
 
@@ -95,7 +95,7 @@ def card_three
   three_array = [@characters[0], @characters[1], @characters[5]] # 2 3 7
   tc_split
   three_array.each do |ta_card|
-    @correct_card = true if @tc_split.include?(ta_card)
+    p1_new_top_card_potential if @tc_split.include?(ta_card)
   end
 end
 
@@ -111,7 +111,7 @@ def card_rules(card_in_question, p1_or_p2)
   elsif ciq_arr.include?(@characters[9]) # Jack
     card_jack
   elsif ciq_arr.include?(@characters[8]) # 10
-    @correct_card = true
+    p1_new_top_card_potential
     @in_play_pile = []
   elsif ciq_arr.include?(@characters[7]) # 9
     card_nine
@@ -128,9 +128,9 @@ def card_rules(card_in_question, p1_or_p2)
   elsif ciq_arr.include?(@characters[1]) # 3
     card_three
   elsif ciq_arr.include?(@characters[0]) # 2
-    @correct_card = true
+    p1_new_top_card_potential
   elsif card_in_question.include?('Joker') # Joker
-    @correct_card = true
+    p1_new_top_card_potential
     # puts "What card will your Joker be impersonating: \n"
     # joker_face = gets.chomp.capitalize
     # @tc_split = joker_face

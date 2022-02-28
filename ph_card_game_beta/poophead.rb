@@ -31,15 +31,6 @@ def which_card_question
   end
 end
 
-# def player_correct_card(player)
-#   true_cards = []
-#   player[0].each do |card|
-#     card_rules(card, player)
-#     true_cards << card if @correct_card == true
-#   end
-#   @in_play_pile.each { |ip_card| player[0] << ip_card } if true_cards.empty?
-# end
-
 def false_card(card_choice, player)
   card_rules(card_choice, player)
   if @correct_card != true
@@ -50,7 +41,11 @@ end
 
 def p1_new_top_card
   top_card_choice = card_check(which_card_question, @player_one)
-  false_card(top_card_choice, @player_one)
+  false_card(top_card_choice, @player_one) unless @in_play_pile.empty?
+  # p1_new_top_card_potential(top_card_choice)
+end
+
+def p1_new_top_card_potential(top_card_choice)
   unless top_card_choice.nil?
     @in_play_pile << top_card_choice
     @player_one[0].delete(top_card_choice)
@@ -71,32 +66,36 @@ end
 
 def tc_split
   top_card_in_play
-  @tc_split = @top_in_play_card.split(//)
+  @tc_split = @top_in_play_card.split(//) unless @top_in_play_card.nil?
 end
 
 def ai_new_top_card(p1_p2)
-  tc_split
-  true_cards = []
-  p1_p2[0].each do |card|
-    card_rules(card, p1_p2)
-    true_cards << card if @correct_card == true
-  end
-  true_cards.sort
-  if true_cards.empty?
-    @in_play_pile.each do |pick_up|
-      p1_p2[0] << pick_up
-    end
-  else
-    p1_p2[0] = []
-    true_cards.each do |t_card|
-      p1_p2[0] << t_card
-    end
-    @in_play_pile << p1_p2[0].delete_at(0)
-    card_count = @card_deck.size
-    p1_p2[0] << @card_deck.delete_at(rand(0..card_count))
-  end
-  print "#{@in_play_pile.reverse} \n"
+
 end
+
+# def ai_new_top_card(p1_p2)
+#   tc_split
+#   true_cards = []
+#   p1_p2[0].each do |card|
+#     card_rules(card, p1_p2)
+#     true_cards << card if @correct_card == true
+#   end
+#   true_cards.sort
+#   if true_cards.empty?
+#     @in_play_pile.each do |pick_up|
+#       p1_p2[0] << pick_up
+#     end
+#   else
+#     p1_p2[0] = []
+#     true_cards.each do |t_card|
+#       p1_p2[0] << t_card
+#     end
+#     @in_play_pile << p1_p2[0].delete_at(0)
+#     card_count = @card_deck.size
+#     p1_p2[0] << @card_deck.delete_at(rand(0..card_count))
+#   end
+#   print "#{@in_play_pile.reverse} \n"
+# end
 
 def check_burn(card_in_question, p1_or_p2)
   suit_and_character = card_in_question.split(//)
