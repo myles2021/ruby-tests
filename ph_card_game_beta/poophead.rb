@@ -51,6 +51,8 @@ end
 @burn = 0
 @high_card = 0
 
+@tc_split = @top_in_play_card.split(//)
+
 def ai_new_top_card_simple
   @in_play_pile << @player_two[0].delete_at(0)
   card_count = @card_deck.size
@@ -106,27 +108,27 @@ def burn(p1_p2)
 end
 
 def card_ace
-  @correct_card = true unless @top_in_play_card.include?(@characters[5]) # 7
+  @correct_card = true unless @tc_split.include?(@characters[5]) # 7
 end
 
 def card_king
-  @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12]) # 7 & Ace
+  @correct_card = true if @tc_split.include?(@characters[5] || @characters[12]) # 7 & Ace
 end
 
 def card_queen
-  @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11]) # 7 & Ace & King
+  @correct_card = true if @tc_split.include?(@characters[5] || @characters[12] || @characters[11]) # 7 & Ace & King
 end
 
 def card_jack
-  @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10]) # 7 & Ace & King & Queen
+  @correct_card = true if @tc_split.include?(@characters[5] || @characters[12] || @characters[11] || @characters[10]) # 7 & Ace & King & Queen
 end
 
 def card_nine
-  @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9])  # 7 & Ace & King & Queen & Jack
+  @correct_card = true if @tc_split.include?(@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9])  # 7 & Ace & King & Queen & Jack
 end
 
 def card_eight_power
-  @top_in_play_card = @in_play_pile[-2]
+  @tc_split = @in_play_pile[-2]
 end
 
 def card_eight
@@ -136,38 +138,39 @@ end
 
 def card_rules(card_in_question, p1_or_p2)
   check_burn(card_in_question, p1_or_p2)
-  if card_in_question.include?(@characters[12]) # Ace
+  ciq_arr = card_in_question.split(//)
+  if ciq_arr.include?(@characters[12]) # Ace
     card_ace
-  elsif card_in_question.include?(@characters[11]) # King
+  elsif ciq_arr.include?(@characters[11]) # King
     card_king
-  elsif card_in_question.include?(@characters[10]) # Queen
+  elsif ciq_arr.include?(@characters[10]) # Queen
     card_queen
-  elsif card_in_question.include?(@characters[9]) # Jack
+  elsif ciq_arr.include?(@characters[9]) # Jack
     card_jack
-  elsif card_in_question.include?(@characters[8]) # 10
+  elsif ciq_arr.include?(@characters[8]) # 10
     @correct_card = true
     @in_play_pile = []
-  elsif card_in_question.include?(@characters[7]) # 9
+  elsif ciq_arr.include?(@characters[7]) # 9
     card_nine
-  elsif card_in_question.include?(@characters[6]) # 8
+  elsif ciq_arr.include?(@characters[6]) # 8
     card_eight
-  elsif card_in_question.include?(@characters[5]) # 7
-    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7]) # 7 & Ace & King & Queen & Jack & 9
-  elsif card_in_question.include?(@characters[4]) # 6
-    @correct_card = true if @top_in_play_card != (@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7] || @characters[4]) # 7 & Ace & King & Queen & Jack & 9
-  elsif card_in_question.include?(@characters[3]) # 5
-    @correct_card = true if @top_in_play_card != (@characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7] || @characters[4]) # Ace & King & Queen & Jack & 9
-  elsif card_in_question.include?(@characters[2]) # 4
-    @correct_card = true if @top_in_play_card != (@characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7] || @characters[4] || @characters[3]) # Ace & King & Queen & Jack & 9 & 5
-  elsif card_in_question.include?(@characters[1]) # 3
-    @correct_card = true if @top_in_play_card == (@characters[0] || @characters[1] || @characters[5]) # 2, 3 & 7
-  elsif card_in_question.include?(@characters[0]) # 2
+  elsif ciq_arr.include?(@characters[5]) # 7
+    @correct_card = true if @tc_split != (@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7]) # 7 & Ace & King & Queen & Jack & 9
+  elsif ciq_arr.include?(@characters[4]) # 6
+    @correct_card = true if @tc_split != (@characters[5] || @characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7] || @characters[4]) # 7 & Ace & King & Queen & Jack & 9
+  elsif ciq_arr.include?(@characters[3]) # 5
+    @correct_card = true if @tc_split != (@characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7] || @characters[4]) # Ace & King & Queen & Jack & 9
+  elsif ciq_arr.include?(@characters[2]) # 4
+    @correct_card = true if @tc_split != (@characters[12] || @characters[11] || @characters[10] || @characters[9] || @characters[7] || @characters[4] || @characters[3]) # Ace & King & Queen & Jack & 9 & 5
+  elsif ciq_arr.include?(@characters[1]) # 3
+    @correct_card = true if @tc_split == (@characters[0] || @characters[1] || @characters[5]) # 2, 3 & 7
+  elsif ciq_arr.include?(@characters[0]) # 2
     @correct_card = true
   elsif card_in_question.include?('Joker') # Joker
     @correct_card = true
     # puts "What card will your Joker be impersonating: \n"
     # joker_face = gets.chomp.capitalize
-    # @top_in_play_card = joker_face
+    # @tc_split = joker_face
   else
     @correct_card = false
   end
