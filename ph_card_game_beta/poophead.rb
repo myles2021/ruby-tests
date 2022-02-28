@@ -2,16 +2,17 @@ require_relative 'croupier'
 
 def card_check(which_card, which_player)
   card_exists = false
-  while card_exists == false
+  if card_exists == false
     which_player[0].each do |card|
       card_exists = true if which_card == card
     end
     if card_exists == false
       puts "Sorry, that card doesn't exist..."
       p1_new_top_card
+      # need to stop the loop once they pick the correct card, break?
     end
   end
-  which_card
+  which_card if card_exists == true
 end
 
 def which_card_question
@@ -28,11 +29,13 @@ end
 
 def p1_new_top_card
   top_card_choice = card_check(which_card_question, @player_one)
-  @in_play_pile << top_card_choice
-  @player_one[0].delete(top_card_choice)
-  card_count = @card_deck.size
-  @player_one[0] << @card_deck.delete_at(rand(0..card_count))
-  print "#{@in_play_pile.reverse} \n"
+  unless top_card_choice.nil?
+    @in_play_pile << top_card_choice
+    @player_one[0].delete(top_card_choice)
+    card_count = @card_deck.size
+    @player_one[0] << @card_deck.delete_at(rand(0..card_count))
+    print "#{@in_play_pile.reverse} \n"
+  end
 end
 
 def recommended_card_choice
