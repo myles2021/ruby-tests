@@ -73,6 +73,12 @@ def ai_new_top_card(p1_p2)
 
 end
 
+def card_sort(player)
+  player[0].each(&:reverse!)
+  player[0].sort
+  player[0].each(&:reverse!)
+end
+
 # def ai_new_top_card(p1_p2)
 #   tc_split
 #   true_cards = []
