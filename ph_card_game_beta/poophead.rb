@@ -1,11 +1,15 @@
 require_relative 'croupier'
 require_relative 'rules_of_cards'
 
+# pile that players will put into
 @in_play_pile = []
+# if correct card is true then it can be put into in play pile
 @correct_card = false
+# potential method to check a burn?
 @burn = 0
 @high_card = 0
 
+# check if the card input is a card that exists for a given player
 def card_check(which_card, which_player)
   card_exists = false
   if card_exists == false
@@ -21,6 +25,7 @@ def card_check(which_card, which_player)
   which_card if card_exists == true
 end
 
+# ask for a card input
 def which_card_question
   puts "Which card will you put in the pile: \n"
   answer = gets.chomp.downcase.gsub(/\s+/, '')
@@ -31,6 +36,7 @@ def which_card_question
   end
 end
 
+# wrong card has been chosen, player picks up the deck
 def false_card(card_choice, player)
   card_rules(card_choice, player)
   if @correct_card != true
@@ -39,12 +45,14 @@ def false_card(card_choice, player)
   end
 end
 
+# asking for their choice, and checking if it is correct or not
 def p1_new_top_card
   top_card_choice = card_check(which_card_question, @player_one)
   false_card(top_card_choice, @player_one) unless @in_play_pile.empty?
   # p1_new_top_card_potential(top_card_choice)
 end
 
+# moving the cards around different piles during the card choice and picking up a new card
 def p1_new_top_card_potential(top_card_choice)
   unless top_card_choice.nil?
     @in_play_pile << top_card_choice
@@ -60,19 +68,23 @@ end
 #   print "#{@in_play_pile.reverse} \n"
 # end
 
+# top card in play is the in play pile index of minus 1 as it joins the array at the end
 def top_card_in_play
   @top_in_play_card = @in_play_pile[-1]
 end
 
+# spliting the top card so that it can be analysed in another method
 def tc_split
   top_card_in_play
   @tc_split = @top_in_play_card.split(//) unless @top_in_play_card.nil?
 end
 
+# new top card method for AI
 def ai_new_top_card(p1_p2)
 
 end
 
+# sorting a players card by numeric value
 def card_sort(player)
   player[0].each(&:reverse!)
   player[0].sort
@@ -103,10 +115,12 @@ end
 #   print "#{@in_play_pile.reverse} \n"
 # end
 
+# checking if the last four cards are the same character and the pile can be burnt
 def check_burn(card_in_question, p1_or_p2)
   suit_and_character = card_in_question.split(//)
   burn(p1_or_p2) if @in_play_pile[-1..-4] == [suit_and_character[1], suit_and_character[1], suit_and_character[1]]
 end
+
 
 def burn(p1_p2)
   @in_play_pile.each do |card|

@@ -4,6 +4,7 @@ require_relative 'poophead'
 puts 'Welcome to the beta card game: "Poophead"!'
 sleep(1)
 puts "Shuffling the deck..."
+# shuffling the cards a random amount of times between 0-5
 shuff = rand(0..5)
 shuff.times do
   @card_deck.shuffle!
@@ -12,6 +13,7 @@ sleep(1)
 
 running = true
 
+# starting a loop for the game to commence
 while running == true
   deal_cards
   nil_check(@player_one)
