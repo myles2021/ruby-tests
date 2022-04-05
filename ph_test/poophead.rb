@@ -33,6 +33,12 @@ def card_switch_ai
   print "#{@in_play_pile.reverse} \n"
 end
 
+# spliting the top card so that it can be analysed in another method
+def tc_split
+  top_card_in_play
+  @tc_split = @top_in_play_card.split(//) unless @top_in_play_card.nil?
+end
+
 def ai_card
   print "#{@player_ai} \n"
   card_switch_ai
