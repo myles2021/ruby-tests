@@ -1,6 +1,6 @@
 @p1_cards = ['H5', 'S4', 'DA']
 @ai_cards = ['H3', 'C6', 'D5']
-@in_play_pile = ['D4', 'D3', 'H3', 'S2']
+@in_play_pile = ['D5', 'D3', 'H3', 'S2']
 @card_deck = ['H7', 'S7', 'S3', 'SA']
 
 top_card = @in_play_pile[0]
@@ -16,6 +16,9 @@ bai_arr = split_card(best_ai_card)
 bp1_arr = split_card(best_p1_card)
 
 @four_yes_arr = ['4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+@five_yes_arr = ['5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+
+@numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 
 def ai_new_card
   @in_play_pile << @ai_cards.delete_at(0)
@@ -24,12 +27,20 @@ def ai_new_card
 end
 
 def new_inplay_card_approval(tc_arr, player_c_arr)
-  if tc_arr[1].include?('4')
+  if tc_arr[1].include?(@numbers[4])
     @four_yes_arr.each do |card_check|
       if player_c_arr[1].include?(card_check)
         ai_new_card
       else
-        puts "sorry no"
+        puts "sorry no 4"
+      end
+    end
+  elsif tc_arr[1].include?(@numbers[5])
+    @five_yes_arr.each do |card_check|
+      if player_c_arr[1].include?(card_check)
+        ai_new_card
+      else
+        puts "sorry no 5"
       end
     end
   end
